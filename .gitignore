@@ -289,3 +289,6 @@ __pycache__/
 
 # Mac OS files
 .DS_Store
+
+# VSTS/TFS extension files
+*.vsix
