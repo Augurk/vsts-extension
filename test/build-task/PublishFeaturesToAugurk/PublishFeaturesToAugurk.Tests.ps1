@@ -2,7 +2,7 @@ Import-Module "$PSScriptRoot\..\BuildTaskTestHelper.psm1"
 
 Describe "Publishes Features To Augurk" {
 	InModuleScope BuildTaskTestHelper {
-		$sut = "$PSScriptRoot\..\..\tfs-build-task\PublishFeaturesToAugurk\task.json"
+		$sut = "$PSScriptRoot\..\..\..\src\build-task\PublishFeaturesToAugurk\task.json"
 		
 		# Dummy function definitions so that we can Mock them
 		Function Find-Files { }
