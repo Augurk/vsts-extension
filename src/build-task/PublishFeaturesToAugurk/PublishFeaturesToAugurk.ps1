@@ -3,32 +3,39 @@ param(
 	[Parameter(Mandatory=$true)][string] $features,
 	[Parameter(Mandatory=$true)][string] $connectedServiceName,
 	[Parameter(Mandatory=$true)][string] $productName,
+	[Parameter(Mandatory=$false)][string] $productDescription,
 	[Parameter(Mandatory=$true)][string] $version,
 	[Parameter(Mandatory=$true)][string] $useFolderStructure,
+	[Parameter(Mandatory=$true)][string] $embedImages,
 	[Parameter(Mandatory=$false)][string] $groupName,
 	[Parameter(Mandatory=$true)][string] $useIntegratedSecurity,
 	[Parameter(Mandatory=$true)][string] $language,
 	[Parameter(Mandatory=$true)][string] $augurkLocation,
+	[Parameter(Mandatory=$false)][string] $additionalArguments,
 	[Parameter(Mandatory=$true)][string] $treatWarningsAsErrors
 )
 
 # Make sure that we stop processing when an error occurs
 $ErrorActionPreference = "Stop"
 
-$treatWarningsAsErrorsBool = [System.Convert]::ToBoolean($treatWarningsAsErrors)
 $useFolderStructureBool = [System.Convert]::ToBoolean($useFolderStructure)
+$embedImagesBool = [System.Convert]::ToBoolean($embedImages)
 $useIntegratedSecurityBool = [System.Convert]::ToBoolean($useIntegratedSecurity)
+$treatWarningsAsErrorsBool = [System.Convert]::ToBoolean($treatWarningsAsErrors)
 
 Write-Verbose "Entering script PublishFeaturesToAugurk.ps1"
 Write-Verbose "Features = $features"
 Write-Verbose "Connected Service Name = $connectedServiceName"
 Write-Verbose "Product Name = $productName"
+Write-Verbose "Product Description = $productDescription"
 Write-Verbose "Version = $version"
 Write-Verbose "UseFolderStructure = $useFolderStructureBool"
+Write-Verbose "Embed Images = $embedImagesBool"
 Write-Verbose "Group Name = $groupName"
 Write-Verbose "Use Integrated Security = $useIntegratedSecurity"
 Write-Verbose "Language = $language"
 Write-Verbose "Augurk Location = $augurkLocation"
+Write-Verbose "Additional arguments = $additionalArguments"
 Write-Verbose "Treat Warnings As Errors = $treatWarningsAsErrorsBool"
 	
 # Import the Task.Common dll that has all the cmdlets we need for Build
@@ -93,29 +100,43 @@ while ($version -match "\$\((\w*\.\w*)\)") {
 $connectedService = Get-ServiceEndpoint -Name "$connectedServiceName" -Context $distributedTaskContext
 $augurkUri = $connectedService.Url
 
-$publish = "publish"
-
+# Compile the list of arguments to pass to Augurk
+$arguments = @("publish", "--productName=$productName", "--version=$version", "--url=$augurkUri")
 if ($useIntegratedSecurityBool) {
-	$publish = "publish --useIntegratedSecurity"
+	$arguments = $arguments += "--useIntegratedSecurity" 
+}
+if ($embedImagesBool) {
+	$arguments = $arguments += "--embed"
+}
+if ($productDescription) {
+	$arguments = $arguments += "--productDesc=$productDescription"
+}
+if ($additionalArguments) {
+	$arguments = $arguments += $additionalArguments
 }
 
 # Determine if we're using the parent folder names as groups
 if (!$useFolderStructureBool) {
 	# Determine the command line arguments to pass to the tool
-	$arguments = @($publish, "--featureFiles=$($featureFiles -join ',')", "--productName=$productName", "--groupName=$groupName", "--version=$version", "--url=$augurkUri")
+	$arguments = $arguments += "--featureFiles=$($featureFiles -join ',')"
+	$arguments = $arguments += "--groupName=$groupName"
 
 	# Invoke the tool
+	Write-Host "Invoking augurk.exe with $arguments"
 	Invoke-Tool -Path $augurk -Arguments ($arguments -join " ")
 } else {
 	# Group the files we're publishing by their parent folder
-	$featureFiles | Get-Item | Group -Property Directory | % {
+	$featureFiles | Get-Item | Group-Object -Property Directory | ForEach-Object {
 		# Determine the command line arguments to pass to the tool
+		$scopeArguments = $arguments.Clone()
 		Write-Verbose $_.Name
 		$groupName = Split-Path $_.Name -Leaf
-		$arguments = @($publish, "--featureFiles=`"$($_.Group -join '`",`"')`"", "--productName=$productName", "--groupName=$groupName", "--version=$version", "--url=$augurkUri")
+		$scopeArguments = $scopeArguments += "--featureFiles=`"$($_.Group -join '`",`"')`""
+		$scopeArguments = $scopeArguments += "--groupName=$groupName"
 
 		# Invoke the tool
-		Invoke-Tool -Path $augurk -Arguments ($arguments -join " ")
+		Write-Host "Invoking augurk.exe with $scopeArguments"
+		Invoke-Tool -Path $augurk -Arguments ($scopeArguments -join " ")
 	}
 }
 	

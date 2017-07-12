@@ -14,10 +14,10 @@ Describe "Publishes Features To Augurk" {
 		
 		Context "When Group Name Is Provided" {
 			$augurk = New-Item TestDrive:\augurk.exe -Type File
-			Mock Find-Files { return [PSCustomObject]@{FullName = "SomeInteresting.feature"} }
-			Mock Invoke-Tool -Verifiable -ParameterFilter {	$Path -eq $augurk -and $Arguments -like "*--groupName=SomeGroupName*" }
+			Mock Find-Files { return [PSCustomObject]@{FullName = "DisplayingFeatures.feature"} }
+			Mock Invoke-Tool -Verifiable -ParameterFilter {	$Path -eq $augurk -and $Arguments -like "*--groupName=Gherkin*" }
 			
-			Invoke-BuildTask -TaskDefinitionFile $sut -- -connectedServiceName "SomeAugurkService" -productName "SomeProduct" -version "SomeVersion" -groupName "SomeGroupName" 
+			Invoke-BuildTask -TaskDefinitionFile $sut -- -connectedServiceName "SomeAugurkService" -productName "Augurk" -version "2.4.0" -groupName "Gherkin" 
 				
 			It "Calls augurk.exe with the provided group name" {
 				Assert-VerifiableMocks
@@ -26,20 +26,56 @@ Describe "Publishes Features To Augurk" {
 		
 		Context "When Folder Structure is used" {
 			$augurk = New-Item TestDrive:\augurk.exe -Type File
-			New-Item TestDrive:\SomeParentFolder -Type Directory | Out-Null
-			New-Item TestDrive:\SomeParentFolder\SomeInteresting.feature -Type File | Out-Null
-			New-Item TestDrive:\SomeOtherParentFolder -Type Directory | Out-Null
-			New-Item TestDrive:\SomeOtherParentFolder\SomeOtherInteresting.feature -Type File | Out-Null
+			New-Item TestDrive:\Gherkin -Type Directory | Out-Null
+			New-Item TestDrive:\Gherkin\DisplayFeatures.feature -Type File | Out-Null
+			New-Item TestDrive:\Versioning -Type Directory | Out-Null
+			New-Item TestDrive:\Versioning\VersioningV1.feature -Type File | Out-Null
 			Mock Find-Files { return @(
-				"TestDrive:\SomeParentFolder\SomeInteresting.feature",
-				"TestDrive:\SomeOtherParentFolder\SomeOtherInteresting.feature"
+				"TestDrive:\Gherkin\DisplayFeatures.feature",
+				"TestDrive:\Versioning\VersioningV1.feature"
 			)}
-			Mock Invoke-Tool -Verifiable -ParameterFilter { $Path -eq $augurk -and $Arguments -like "*--groupName=SomeParentFolder*" }
-			Mock Invoke-Tool -Verifiable -ParameterFilter { $Path -eq $augurk -and $Arguments -like "*--groupName=SomeOtherParentFolder*" }
+			Mock Invoke-Tool -Verifiable -ParameterFilter { $Path -eq $augurk -and $Arguments -like "*--groupName=Gherkin*" }
+			Mock Invoke-Tool -Verifiable -ParameterFilter { $Path -eq $augurk -and $Arguments -like "*--groupName=Versioning*" }
 			
-			Invoke-BuildTask -TaskDefinitionFile $sut -- -connectedServiceName "SomeAugurkService" -productName "SomeProduct" -version "SomeVersion" -useFolderStructure "True"
+			Invoke-BuildTask -TaskDefinitionFile $sut -- -connectedServiceName "SomeAugurkService" -productName "Augurk" -version "2.4.0" -useFolderStructure "True"
 				
 			It "Calls augurk.exe with the provided group names" {
+				Assert-VerifiableMocks
+			}
+		}
+
+		Context "When Product Description is provided" {
+			$augurk = New-Item TestDrive:\augurk.exe -Type File
+			Mock Find-Files { return [PSCustomObject]@{FullName = "DisplayingFeatures.feature"} }
+			Mock Invoke-Tool -Verifiable -ParameterFilter {	$Path -eq $augurk -and $Arguments -like "*--groupName=Gherkin*" -and $Arguments -like "**--productDesc=Augurk.md*" }
+			
+			Invoke-BuildTask -TaskDefinitionFile $sut -- -connectedServiceName "SomeAugurkService" -productName "Augurk" -version "2.4.0" -groupName "Gherkin" -embedImages "true" -productDescription "Augurk.md"
+				
+			It "Calls augurk.exe with the --productDesc flag and the appropriate value" {
+				Assert-VerifiableMocks
+			}
+		}
+
+		Context "When Embed Images is checked" {
+			$augurk = New-Item TestDrive:\augurk.exe -Type File
+			Mock Find-Files { return [PSCustomObject]@{FullName = "DisplayingFeatures.feature"} }
+			Mock Invoke-Tool -Verifiable -ParameterFilter {	$Path -eq $augurk -and $Arguments -like "*--groupName=Gherkin*" -and $Arguments -like "**--embed*" }
+			
+			Invoke-BuildTask -TaskDefinitionFile $sut -- -connectedServiceName "SomeAugurkService" -productName "Augurk" -version "2.4.0" -groupName "Gherkin" -embedImages "true" 
+				
+			It "Calls augurk.exe with the --embed flag" {
+				Assert-VerifiableMocks
+			}
+		}
+
+		Context "When Additional Arguments are provided" {
+			$augurk = New-Item TestDrive:\augurk.exe -Type File
+			Mock Find-Files { return [PSCustomObject]@{FullName = "DisplayingFeatures.feature"} }
+			Mock Invoke-Tool -Verifiable -ParameterFilter {	$Path -eq $augurk -and $Arguments -like "*--groupName=Gherkin*" -and $Arguments -like "**--branchName=MyFeature*" }
+			
+			Invoke-BuildTask -TaskDefinitionFile $sut -- -connectedServiceName "SomeAugurkService" -productName "Augurk" -version "2.4.0" -groupName "Gherkin" -additionalArguments "--branchName=MyFeature" 
+				
+			It "Calls augurk.exe with the provided additional arguments" {
 				Assert-VerifiableMocks
 			}
 		}
