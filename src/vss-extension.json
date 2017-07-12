@@ -2,7 +2,7 @@
   "manifestVersion": 1,
   "id": "augurk",
   "name": "Augurk",
-  "version": "0.2.0",
+  "version": "0.3.2",
   "publisher": "augurk",
   "description": "Integrates the living documentation system called Augurk into the VSTS/TFS experience.",
   "targets": [
@@ -69,6 +69,13 @@
           "displayName": "Server Url",
           "helpText": "Url for the Augurk server to connect to."
         },
+        "dataSources": [
+          {
+            "name": "Augurk Products",
+            "endpointUrl": "{{endpoint.url}}api/v2/products",
+            "resultSelector": "jsonpath:$[*]"
+          }
+        ],
         "authenticationSchemes": [
           {
             "type": "ms.vss-endpoint.endpoint-auth-scheme-none" 
