@@ -6,9 +6,9 @@
     "category": "Utility",
     "author": "Jonathan Mezach, Mark Taling",
     "version": {
-        "Major": 0,
-        "Minor": 7,
-        "Patch": 1
+        "Major": 1,
+        "Minor": 0,
+        "Patch": 0
     },
     "instanceNameFormat": "Publish features from $(features) to Augurk",
     "groups": [

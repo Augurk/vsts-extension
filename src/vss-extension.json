@@ -2,7 +2,7 @@
   "manifestVersion": 1,
   "id": "augurk",
   "name": "Augurk",
-  "version": "0.3.2",
+  "version": "1.0.0",
   "publisher": "augurk",
   "description": "Integrates the living documentation system called Augurk into the VSTS/TFS experience.",
   "targets": [
