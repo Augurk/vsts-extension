@@ -2,13 +2,14 @@
   "manifestVersion": 1,
   "id": "augurk",
   "name": "Augurk",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "publisher": "augurk",
   "description": "Integrates the living documentation system called Augurk into the VSTS/TFS experience.",
+  "public": true,
   "targets": [
     {
       "id": "Microsoft.VisualStudio.Services"
-    }
+    },
   ],
   "categories": [
     "Build and release"
