@@ -13,3 +13,4 @@ steps:
 
 - script: |
     npm install
+  workingDirectory: src/build-task/AugurkCSharpAnalyzerInstaller
