@@ -13,5 +13,6 @@ steps:
 
 - script: |
     npm install
+    npx tsc -v
     npx tsc
   workingDirectory: src/build-task/AugurkCSharpAnalyzerInstaller
