@@ -24,3 +24,9 @@ steps:
     npx tsc
   workingDirectory: src/build-task/AugurkCSharpAnalyzer
   displayName: Build AugurkCSharpAnalyzer task
+
+- task: PackageVSTSExtension@1
+  displayName: Package extension
+  inputs:
+    rootFolder: src
+    outputPath: $(Build.ArtifactStagingDirectory)
