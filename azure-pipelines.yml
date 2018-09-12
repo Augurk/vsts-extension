@@ -29,9 +29,9 @@ steps:
   displayName: Package extension
   inputs:
     rootFolder: src
-    outputPath: $(Build.ArtifactStagingDirectory)\augurk-preview.vsix
+    outputPath: $(Build.ArtifactStagingDirectory)/augurk-preview.vsix
 
 - task: PublishBuildArtifacts@1
   inputs:
-    pathToPublish: $(Build.ArtifactStagingDirectory)\augurk-preview.vsix
+    pathToPublish: $(Build.ArtifactStagingDirectory)/augurk-preview.vsix
     artifactName: vsix
