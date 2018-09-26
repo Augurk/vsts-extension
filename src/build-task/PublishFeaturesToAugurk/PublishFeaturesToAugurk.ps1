@@ -101,7 +101,7 @@ $connectedService = Get-ServiceEndpoint -Name "$connectedServiceName" -Context $
 $augurkUri = $connectedService.Url
 
 # Compile the list of arguments to pass to Augurk
-$arguments = @("publish", "--productName=$productName", "--version=$version", "--url=$augurkUri")
+$arguments = @("publish", "--productName=$productName", "--version=$version", "--url=$augurkUri", "--language=$language")
 if ($useIntegratedSecurityBool) {
 	$arguments = $arguments += "--useIntegratedSecurity" 
 }
