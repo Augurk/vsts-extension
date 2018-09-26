@@ -118,7 +118,7 @@ if ($additionalArguments) {
 # Determine if we're using the parent folder names as groups
 if (!$useFolderStructureBool) {
 	# Determine the command line arguments to pass to the tool
-	$arguments = $arguments += "--featureFiles=$($featureFiles -join ',')"
+	$arguments = $arguments += "--featureFiles=`"$($featureFiles -join '`",`"')`""
 	$arguments = $arguments += "--groupName=$groupName"
 
 	# Invoke the tool
