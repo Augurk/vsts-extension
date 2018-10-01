@@ -11,20 +11,27 @@
         "Patch": 2
     },
     "instanceNameFormat": "Install Augurk C# Analyzer $(version)",
-  "inputs": [
-    {
-      "name": "version",
-      "type": "string",
-      "label": "Version",
-      "defaultValue": "0.1.0",
-      "required": true,
-      "helpMarkDown": "Version of the Augurk C# analyzer to install. Refer to [NuGet](https://www.nuget.org/packages/Augurk.CSharpAnalyzer/) for a list of available versions."
-    }
-  ],
-  "execution": {
-      "Node": {
-          "target": "csharpanalyzer-installer.js",
-          "argumentFormat": ""
-      }
-  }    
+    "inputs": [
+        {
+            "name": "version",
+            "type": "string",
+            "label": "Version",
+            "required": true,
+            "helpMarkDown": "Version of the Augurk C# analyzer to install. Refer to [GitHub](https://github.com/Augurk/Augurk.CSharpAnalyzer/releases/) for a list of available versions."
+        }
+    ],
+    "dataSourceBindings": [
+        {
+          "target": "version",
+          "endpointUrl": "https://api.github.com/repos/augurk/Augurk.CSharpAnalyzer/releases",
+          "resultSelector": "jsonpath:$[*]",
+          "resultTemplate": "{ \"Value\" : \"{{{name}}}\", \"DisplayValue\" : \"{{{name}}}\" }"
+        }
+    ],
+    "execution": {
+        "Node": {
+            "target": "csharpanalyzer-installer.js",
+            "argumentFormat": ""
+        }
+    }    
 }
