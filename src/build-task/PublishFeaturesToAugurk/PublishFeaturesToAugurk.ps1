@@ -108,7 +108,7 @@ if ($useIntegratedSecurityBool) {
 if ($embedImagesBool) {
 	$arguments = $arguments += "--embed"
 }
-if ($productDescription) {
+if (![string]::IsNullOrEmpty($productDescription)) {
 	$arguments = $arguments += "--productDesc=$productDescription"
 }
 if ($additionalArguments) {

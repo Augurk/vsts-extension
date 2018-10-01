@@ -20,7 +20,7 @@ Describe "Publishes Features To Augurk" {
 			Invoke-BuildTask -TaskDefinitionFile $sut -- -connectedServiceName "SomeAugurkService" -productName "Augurk" -version "2.4.0" -groupName "Gherkin" 
 				
 			It "Calls augurk.exe with the provided group name" {
-				Assert-VerifiableMocks
+				Assert-VerifiableMock
 			}
 		}
 		
@@ -40,7 +40,7 @@ Describe "Publishes Features To Augurk" {
 			Invoke-BuildTask -TaskDefinitionFile $sut -- -connectedServiceName "SomeAugurkService" -productName "Augurk" -version "2.4.0" -useFolderStructure "True"
 				
 			It "Calls augurk.exe with the provided group names" {
-				Assert-VerifiableMocks
+				Assert-VerifiableMock
 			}
 		}
 
@@ -52,7 +52,7 @@ Describe "Publishes Features To Augurk" {
 			Invoke-BuildTask -TaskDefinitionFile $sut -- -connectedServiceName "SomeAugurkService" -productName "Augurk" -version "2.4.0" -groupName "Gherkin" -embedImages "true" -productDescription "Augurk.md"
 				
 			It "Calls augurk.exe with the --productDesc flag and the appropriate value" {
-				Assert-VerifiableMocks
+				Assert-VerifiableMock
 			}
 		}
 
@@ -64,7 +64,7 @@ Describe "Publishes Features To Augurk" {
 			Invoke-BuildTask -TaskDefinitionFile $sut -- -connectedServiceName "SomeAugurkService" -productName "Augurk" -version "2.4.0" -groupName "Gherkin" -embedImages "true" 
 				
 			It "Calls augurk.exe with the --embed flag" {
-				Assert-VerifiableMocks
+				Assert-VerifiableMock
 			}
 		}
 
@@ -76,7 +76,7 @@ Describe "Publishes Features To Augurk" {
 			Invoke-BuildTask -TaskDefinitionFile $sut -- -connectedServiceName "SomeAugurkService" -productName "Augurk" -version "2.4.0" -groupName "Gherkin" -additionalArguments "--branchName=MyFeature" 
 				
 			It "Calls augurk.exe with the provided additional arguments" {
-				Assert-VerifiableMocks
+				Assert-VerifiableMock
 			}
 		}
 	}
