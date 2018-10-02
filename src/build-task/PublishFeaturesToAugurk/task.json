@@ -8,7 +8,7 @@
     "version": {
         "Major": 1,
         "Minor": 0,
-        "Patch": 3
+        "Patch": 4
     },
     "instanceNameFormat": "Publish features from $(features) to Augurk",
     "groups": [
@@ -50,7 +50,6 @@
       "name": "productDescription",
       "type": "filePath",
       "label": "Product Description",
-      "defaultValue": "",
       "required": false,
       "helpMarkDown": "Path to a Markdown file containing a description of the product being published to Augurk."
     },

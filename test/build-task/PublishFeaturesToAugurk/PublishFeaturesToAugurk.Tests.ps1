@@ -71,7 +71,7 @@ Describe "Publishes Features To Augurk" {
 		Context "When Additional Arguments are provided" {
 			$augurk = New-Item TestDrive:\augurk.exe -Type File
 			Mock Find-Files { return [PSCustomObject]@{FullName = "DisplayingFeatures.feature"} }
-			Mock Invoke-Tool -Verifiable -ParameterFilter {	$Path -eq $augurk -and $Arguments -like "*--groupName=Gherkin*" -and $Arguments -like "**--branchName=MyFeature*" }
+			Mock Invoke-Tool -Verifiable -ParameterFilter {	$Path -eq $augurk -and $Arguments -like "*--groupName=Gherkin*" -and $Arguments -like "*--branchName=MyFeature*" -and $Arguments -notlike "*--productDescription=*" }
 			
 			Invoke-BuildTask -TaskDefinitionFile $sut -- -connectedServiceName "SomeAugurkService" -productName "Augurk" -version "2.4.0" -groupName "Gherkin" -additionalArguments "--branchName=MyFeature" 
 				
