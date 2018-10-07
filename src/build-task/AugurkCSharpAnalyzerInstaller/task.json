@@ -8,8 +8,11 @@
     "version": {
         "Major": 0,
         "Minor": 1,
-        "Patch": 3
+        "Patch": 4
     },
+    "capabilities": [
+        "augurk-csharpanalyzer"
+    ],
     "instanceNameFormat": "Install Augurk C# Analyzer $(version)",
     "inputs": [
         {
