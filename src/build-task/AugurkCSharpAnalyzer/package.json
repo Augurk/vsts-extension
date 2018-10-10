@@ -1,7 +1,7 @@
 {
   "name": "augurk-csharp-analyzer-task",
   "version": "1.0.0",
-  "description": "A VSTS/TFS build task that invokes Augurk's CSharp Analyzer",
+  "description": "An Azure DevOps (Server) build task that invokes Augurk's CSharp Analyzer",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

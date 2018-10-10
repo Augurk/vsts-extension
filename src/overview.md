@@ -1,7 +1,6 @@
 # Augurk
 
-Install this extension in order to integrate *Augurk* into your build pipeline. The extension currently provides 3 build tasks that can be
-used together in order to get the most out of your living documentation.
+Install this extension in order to integrate *Augurk* into your build pipeline. The extension currently provides 3 build tasks that can be used together in order to get the most out of your living documentation.
 
 To get started, use the following steps.
 

@@ -2,7 +2,7 @@
   "id": "3b04573e-7699-440a-93ae-8f7b06259078",
   "name": "AugurkCSharpAnalyzer",
   "friendlyName": "Run Augurk C# Analysis",
-  "description": "Performs a static code analysis over your test automation and uploads the results to Augurk",
+  "description": "Performs a static code analysis over your test automation and uploads the results to Augurk allowing you to visualize dependencies between features",
   "category": "Utility",
   "author": "Augurk",
   "version": {
@@ -33,10 +33,10 @@
     {
       "name": "specificationProject",
       "type": "string",
-      "label": "Specification project",
+      "label": "Test project",
       "defaultValue": "",
       "required": true,
-      "helpMarkDown": "Name of the project containing the feature files"
+      "helpMarkDown": "Name of the project containing the SpecFlow test automation"
     },
     {
       "name": "connectedServiceName",
@@ -71,7 +71,7 @@
       "label": "Additional argument(s)",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Any additional command line arguments you want to pass to Augurk.CSharpAnalyzer.exe",
+      "helpMarkDown": "Any additional command line arguments you want to pass to Augurk.CSharpAnalyzer",
       "groupName": "advanced"
     }
   ],
