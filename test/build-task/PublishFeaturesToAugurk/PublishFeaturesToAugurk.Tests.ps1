@@ -20,7 +20,7 @@ Describe "Publishes Features To Augurk" {
 			Invoke-BuildTask -TaskDefinitionFile $sut -- -connectedServiceName "SomeAugurkService" -productName "Augurk" -version "2.4.0" -groupName "Gherkin" 
 				
 			It "Calls augurk.exe with the provided group name" {
-				Assert-VerifiableMocks
+				Assert-VerifiableMock
 			}
 		}
 		
@@ -40,7 +40,7 @@ Describe "Publishes Features To Augurk" {
 			Invoke-BuildTask -TaskDefinitionFile $sut -- -connectedServiceName "SomeAugurkService" -productName "Augurk" -version "2.4.0" -useFolderStructure "True"
 				
 			It "Calls augurk.exe with the provided group names" {
-				Assert-VerifiableMocks
+				Assert-VerifiableMock
 			}
 		}
 
@@ -52,7 +52,7 @@ Describe "Publishes Features To Augurk" {
 			Invoke-BuildTask -TaskDefinitionFile $sut -- -connectedServiceName "SomeAugurkService" -productName "Augurk" -version "2.4.0" -groupName "Gherkin" -embedImages "true" -productDescription "Augurk.md"
 				
 			It "Calls augurk.exe with the --productDesc flag and the appropriate value" {
-				Assert-VerifiableMocks
+				Assert-VerifiableMock
 			}
 		}
 
@@ -64,19 +64,19 @@ Describe "Publishes Features To Augurk" {
 			Invoke-BuildTask -TaskDefinitionFile $sut -- -connectedServiceName "SomeAugurkService" -productName "Augurk" -version "2.4.0" -groupName "Gherkin" -embedImages "true" 
 				
 			It "Calls augurk.exe with the --embed flag" {
-				Assert-VerifiableMocks
+				Assert-VerifiableMock
 			}
 		}
 
 		Context "When Additional Arguments are provided" {
 			$augurk = New-Item TestDrive:\augurk.exe -Type File
 			Mock Find-Files { return [PSCustomObject]@{FullName = "DisplayingFeatures.feature"} }
-			Mock Invoke-Tool -Verifiable -ParameterFilter {	$Path -eq $augurk -and $Arguments -like "*--groupName=Gherkin*" -and $Arguments -like "**--branchName=MyFeature*" }
+			Mock Invoke-Tool -Verifiable -ParameterFilter {	$Path -eq $augurk -and $Arguments -like "*--groupName=Gherkin*" -and $Arguments -like "*--branchName=MyFeature*" -and $Arguments -notlike "*--productDescription=*" }
 			
 			Invoke-BuildTask -TaskDefinitionFile $sut -- -connectedServiceName "SomeAugurkService" -productName "Augurk" -version "2.4.0" -groupName "Gherkin" -additionalArguments "--branchName=MyFeature" 
 				
 			It "Calls augurk.exe with the provided additional arguments" {
-				Assert-VerifiableMocks
+				Assert-VerifiableMock
 			}
 		}
 	}

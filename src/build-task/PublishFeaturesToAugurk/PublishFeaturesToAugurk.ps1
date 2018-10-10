@@ -101,14 +101,14 @@ $connectedService = Get-ServiceEndpoint -Name "$connectedServiceName" -Context $
 $augurkUri = $connectedService.Url
 
 # Compile the list of arguments to pass to Augurk
-$arguments = @("publish", "--productName=$productName", "--version=$version", "--url=$augurkUri")
+$arguments = @("publish", "--productName=$productName", "--version=$version", "--url=$augurkUri", "--language=$language")
 if ($useIntegratedSecurityBool) {
 	$arguments = $arguments += "--useIntegratedSecurity" 
 }
 if ($embedImagesBool) {
 	$arguments = $arguments += "--embed"
 }
-if ($productDescription) {
+if (![string]::IsNullOrEmpty($productDescription)) {
 	$arguments = $arguments += "--productDesc=$productDescription"
 }
 if ($additionalArguments) {
@@ -118,7 +118,7 @@ if ($additionalArguments) {
 # Determine if we're using the parent folder names as groups
 if (!$useFolderStructureBool) {
 	# Determine the command line arguments to pass to the tool
-	$arguments = $arguments += "--featureFiles=$($featureFiles -join ',')"
+	$arguments = $arguments += "--featureFiles=`"$($featureFiles -join '`",`"')`""
 	$arguments = $arguments += "--groupName=$groupName"
 
 	# Invoke the tool

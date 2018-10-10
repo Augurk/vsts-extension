@@ -1,6 +1,6 @@
 # Augurk
 
-Install this extension in order to integrate *Augurk* into your build pipeline. At the moment, a single build task is provided that publishes your __*.feature__ files to an Augurk instance.
+Install this extension in order to integrate *Augurk* into your build pipeline. The extension currently provides 3 build tasks that can be used together in order to get the most out of your living documentation.
 
 To get started, use the following steps.
 
@@ -30,7 +30,7 @@ The actual publishing of feature files to Augurk is done through the Augurk.Comm
 
 Alternatively you can install the tool somewhere on your build agent and point the build task there through advanced configuration.
 
-## 3. Add the build task to your build definition
+## 3. Add the Publish build task to your build definition
 Edit an existing build definition or create a new one and add the *Publish features to Augurk* task to it. It can be found under the Utility group:
 
 ![](img/PublishFeaturesToAugurk-AddTask.png)
@@ -62,3 +62,22 @@ To further customize how feature files are published to Augurk you can use the f
 * **augurk.exe Location** - Specifies the path to augurk.exe to use when publishing feature files. Defaults to a path that finds an augurk.exe in the packages folder. If you have the Augurk.CommandLine NuGet package installed, leave this value as is.
 * **Additional argument(s)** - Specify any additional arguments that you want to pass to augurk.exe here. Refer to the documentation (augurk.exe -?) to see the available options.
 * **Treat warning(s) as errors** - Check this option if warning(s) that are encountered during publishing should result in the build failing.
+
+## 6. Add dependency analysis
+Augurk also has the ability to visualize dependencies between the individual feature files automatically based on static code analysis. In order to use this, two additional tasks can be added to the build pipeline. The first of these is the Augurk CSharpAnalyzer Installer task. This task downloads a specific version of the CSharpAnalyzer onto the build agent and makes it available to the build to use:
+
+![](img/AugurkCSharpAnalyzerInstaller-BuildTask.png)
+
+* **Version** - The version of the analyzer to installer. Refer to [GitHub](https://github.com/Augurk/Augurk.CSharpAnalyzer/releases) for available versions.
+
+If you prefer to not have the build install a version of the analyzer onto your build agent, you can also manage the installation yourself. To do so, install the Analyzer on the build agent, make sure that it is available on the path and add the **augurk-csharpanalyzer** capability to your build agent.
+
+After that, you can use the Augurk CSharpAnalyzer task to perform the actual analysis and upload the results to Augurk. To do so, add the task to your build definition and configure the following settings:
+
+![](img/AugurkCSharpAnalyzer-BuildTask.png)
+
+* **Solution(s)** - Path(s) to one or more solution(s) that you want to analyze.
+* **Specification project** - The name of the project within the solution that contains the feature files and automation logic.
+* **Augurk instance** - Pick an instance of Augurk to publish the results to, or configure a new one (see above).
+* **Product name** - The name of the product under which the results should be uploaded to Augurk.
+* **Version** - The version of the product being analyzed.

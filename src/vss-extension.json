@@ -1,15 +1,15 @@
 {
   "manifestVersion": 1,
-  "id": "augurk",
-  "name": "Augurk",
-  "version": "1.0.4",
+  "id": "augurk-preview",
+  "name": "Augurk (Preview)",
+  "version": "1.1.3",
   "publisher": "augurk",
   "description": "Integrates the living documentation system called Augurk into the VSTS/TFS experience.",
-  "public": true,
+  "public": false,
   "targets": [
     {
       "id": "Microsoft.VisualStudio.Services"
-    },
+    }
   ],
   "categories": [
     "Build and release"
@@ -17,6 +17,9 @@
   "icons": {
     "default": "extension-icon.png"
   },
+  "galleryFlags": [
+    "Preview"
+  ],
   "files": [
     {
       "path": "img",
@@ -24,6 +27,12 @@
     },
     {
       "path": "build-task/PublishFeaturesToAugurk"
+    },
+    {
+      "path": "build-task/AugurkCSharpAnalyzer"
+    },
+    {
+      "path": "build-task/AugurkCSharpAnalyzerInstaller"
     }
   ],
   "content": {
@@ -56,6 +65,26 @@
       ],
       "properties": {
         "name": "build-task/PublishFeaturesToAugurk"
+      }
+    },
+    {
+      "id": "augurk-csharp-analyzer",
+      "type": "ms.vss-distributed-task.task",
+      "targets": [
+        "ms.vss-distributed-task.tasks"
+      ],
+      "properties":{
+        "name": "build-task/AugurkCSharpAnalyzer"
+      }
+    },
+    {
+      "id": "augurk-csharp-analyzer-installer",
+      "type": "ms.vss-distributed-task.task",
+      "targets": [
+        "ms.vss-distributed-task.tasks"
+      ],
+      "properties":{
+        "name": "build-task/AugurkCSharpAnalyzerInstaller"
       }
     },
     {
