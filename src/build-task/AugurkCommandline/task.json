@@ -8,7 +8,7 @@
   "version": {
     "Major": 0,
     "Minor": 2,
-    "Patch": 0
+    "Patch": 1
   },
   "demands": [
     "augurk-commandline"
@@ -93,7 +93,7 @@
     },
     {
       "name": "publishGroupName",
-      "type": "string",
+      "type": "pickList",
       "label": "Group Name",
       "defaultValue": "",
       "required": true,
@@ -132,7 +132,7 @@
 
     {
       "name": "deleteGroupName",
-      "type": "string",
+      "type": "pickList",
       "label": "Group Name",
       "defaultValue": "",
       "required": true,
