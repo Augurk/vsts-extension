@@ -92,13 +92,16 @@
       "visibleRule": "command=publish"
     },
     {
-      "name": "groupName",
+      "name": "publishGroupName",
       "type": "string",
       "label": "Group Name",
       "defaultValue": "",
       "required": true,
       "helpMarkDown": "Name of the group under which the features should be published to Augurk.",
-      "visibleRule": "useFolderStructure=false"
+      "visibleRule": "command=publish && useFolderStructure=false",
+      "properties": {
+        "EditableOptions": "True"
+      }
     },
     {
       "name": "version",
@@ -127,6 +130,18 @@
       "visibleRule": "command=publish && includeProductDescription=true"
     },
 
+    {
+      "name": "deleteGroupName",
+      "type": "string",
+      "label": "Group Name",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "Name of the group to delete in Augurk.",
+      "visibleRule": "command=delete",
+      "properties": {
+        "EditableOptions": "True"
+      }
+    },
     {
       "name": "featureName",
       "type": "string",
@@ -171,6 +186,16 @@
       "target": "productName",
       "endpointId": "$(connectedServiceName)",
       "dataSourceName": "Augurk Products"
+    },
+    {
+      "target": "publishGroupName",
+      "endpointId": "$(connectedServiceName)",
+      "dataSourceName": "Augurk Product Groups"
+    },
+    {
+      "target": "deleteGroupName",
+      "endpointId": "$(connectedServiceName)",
+      "dataSourceName": "Augurk Product Groups"
     }
   ],
   "execution": {
