@@ -8,7 +8,7 @@
   "version": {
     "Major": 0,
     "Minor": 2,
-    "Patch": 2
+    "Patch": 3
   },
   "demands": [
     "augurk-commandline"
@@ -144,12 +144,15 @@
     },
     {
       "name": "featureName",
-      "type": "string",
+      "type": "pickList",
       "label": "Feature name",
-      "defaultValue": "en-US",
+      "defaultValue": "",
       "required": false,
       "helpMarkDown": "Name of the feature to delete, or empty to delete all features in the selected product and group.",
-      "visibleRule": "command=delete"
+      "visibleRule": "command=delete",
+      "properties": {
+        "EditableOptions": "True"
+      }
     },
 
     {
@@ -201,6 +204,15 @@
       "dataSourceName": "Augurk Product Groups",
       "parameters": {
         "productName": "$(productName)"
+      }
+    },
+    {
+      "target": "featureName",
+      "endpointId": "$(connectedServiceName)",
+      "dataSourceName": "Augurk Product Group Features",
+      "parameters": {
+        "productName": "$(productName)",
+        "groupName": "$(deleteGroupName)"
       }
     }
   ],

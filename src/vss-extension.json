@@ -135,6 +135,11 @@
             "name": "Augurk Product Groups",
             "endpointUrl": "{{endpoint.url}}api/v2/products/$(productName)/groups",
             "resultSelector": "jsonpath:$[*].name"
+          },
+          {
+            "name": "Augurk Product Group Features",
+            "endpointUrl": "{{endpoint.url}}api/v2/products/$(productName)/groups/$(groupName)/features",
+            "resultSelector": "jsonpath:$[*].title"
           }
         ],
         "authenticationSchemes": [
