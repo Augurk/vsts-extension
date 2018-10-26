@@ -1,0 +1,32 @@
+{
+    "id": "e0728d70-4051-41e9-a9cc-454c0a9d99da",
+    "name": "AugurkCommandlineInstaller",
+    "friendlyName": "Install Augurk Commandline",
+    "description": "Installs a specific version of the Augurk Commandline onto the build agent, which can then be used by the associated publish task",
+    "category": "Utility",
+    "author": "Augurk",
+    "version": {
+        "Major": 0,
+        "Minor": 1,
+        "Patch": 0
+    },
+    "capabilities": [
+        "augurk-commandline"
+    ],
+    "instanceNameFormat": "Install Augurk Commandline $(version)",
+    "inputs": [
+        {
+            "name": "version",
+            "type": "string",
+            "label": "Version",
+            "required": true,
+            "helpMarkDown": "Version of the Augurk Commandline to install. Refer to [GitHub](https://github.com/Augurk/Augurk.CommandLine/releases/) for a list of available versions."
+        }
+    ],
+    "execution": {
+        "Node": {
+            "target": "commandline-installer.js",
+            "argumentFormat": ""
+        }
+    }    
+}
