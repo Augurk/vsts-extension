@@ -33,6 +33,12 @@
     },
     {
       "path": "build-task/AugurkCSharpAnalyzerInstaller"
+    },
+    {
+      "path": "build-task/AugurkCommandline"
+    },
+    {
+      "path": "build-task/AugurkCommandlineInstaller"
     }
   ],
   "content": {
@@ -85,6 +91,16 @@
       ],
       "properties":{
         "name": "build-task/AugurkCSharpAnalyzerInstaller"
+      }
+    },
+    {
+      "id": "augurk-commandline",
+      "type": "ms.vss-distributed-task.task",
+      "targets": [
+        "ms.vss-distributed-task.tasks"
+      ],
+      "properties": {
+        "name": "build-task/AugurkCommandline"
       }
     },
     {
