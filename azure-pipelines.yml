@@ -26,6 +26,20 @@ steps:
   workingDirectory: src/build-task/AugurkCSharpAnalyzer
   displayName: Build AugurkCSharpAnalyzer task
 
+- script: |
+    npm install
+    npx tsc -v
+    npx tsc
+  workingDirectory: src/build-task/AugurkCommandlineInstaller
+  displayName: Build AugurkCommandlineInstaller task
+
+- script: |
+    npm install
+    npx tsc -v
+    npx tsc
+  workingDirectory: src/build-task/AugurkCommandline
+  displayName: Build AugurkCommandline task
+
 - task: PackageVSTSExtension@1
   displayName: Package extension
   inputs:
