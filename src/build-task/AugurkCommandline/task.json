@@ -135,7 +135,7 @@
       "type": "pickList",
       "label": "Group Name",
       "defaultValue": "",
-      "required": true,
+      "required": false,
       "helpMarkDown": "Name of the group to delete in Augurk.",
       "visibleRule": "command=delete",
       "properties": {
