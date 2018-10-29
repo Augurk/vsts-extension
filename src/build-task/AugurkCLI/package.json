@@ -1,7 +1,7 @@
 {
-  "name": "augurk-commandline-task",
+  "name": "augurk-cli-task",
   "version": "1.0.0",
-  "description": "An Azure DevOps (Server) build task that invokes Augurk's command line",
+  "description": "An Azure DevOps (Server) build task that invokes Augurk's CLI",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

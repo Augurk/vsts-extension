@@ -1,6 +1,6 @@
 {
     "id": "e0728d70-4051-41e9-a9cc-454c0a9d99da",
-    "name": "AugurkCommandlineInstaller",
+    "name": "AugurkCLIInstaller",
     "friendlyName": "Install Augurk CLI",
     "description": "Installs a specific version of the Augurk CLI onto the build agent, which can then be used by the associated publish task",
     "category": "Utility",
@@ -11,7 +11,7 @@
         "Patch": 1
     },
     "capabilities": [
-        "augurk-commandline"
+        "augurk-cli"
     ],
     "instanceNameFormat": "Install Augurk CLI $(version)",
     "inputs": [
@@ -25,7 +25,7 @@
     ],
     "execution": {
         "Node": {
-            "target": "commandline-installer.js",
+            "target": "cli-installer.js",
             "argumentFormat": ""
         }
     }    

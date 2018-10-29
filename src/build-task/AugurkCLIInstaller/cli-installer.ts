@@ -29,7 +29,7 @@ async function run() {
         toolLib.prependPath(extractRoot);
     }
     catch (err) {
-        taskLib.setResult(taskLib.TaskResult.Failed, taskLib.loc('AugurkCommandlineInstallerailed', err.message));
+        taskLib.setResult(taskLib.TaskResult.Failed, taskLib.loc('AugurkCLIInstallerFailed', err.message));
     }
 }
 

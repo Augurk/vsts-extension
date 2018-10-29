@@ -30,15 +30,15 @@ steps:
     npm install
     npx tsc -v
     npx tsc
-  workingDirectory: src/build-task/AugurkCommandlineInstaller
-  displayName: Build AugurkCommandlineInstaller task
+  workingDirectory: src/build-task/AugurkCLIInstaller
+  displayName: Build AugurkCLIInstaller task
 
 - script: |
     npm install
     npx tsc -v
     npx tsc
-  workingDirectory: src/build-task/AugurkCommandline
-  displayName: Build AugurkCommandline task
+  workingDirectory: src/build-task/AugurkCLI
+  displayName: Build AugurkCLI task
 
 - task: PackageVSTSExtension@1
   displayName: Package extension
