@@ -13,30 +13,31 @@ steps:
     versionSpec: '8.x'
 
 - script: |
+    npm install -g typescript
+    tsc -v
+  displayName: Install typescript
+
+- script: |
     npm install
-    npx tsc -v
-    npx tsc
+    tsc
   workingDirectory: src/build-task/AugurkCSharpAnalyzerInstaller
   displayName: Build AugurkCSharpAnalyzerInstaller task
 
 - script: |
     npm install
-    npx tsc -v
-    npx tsc
+    tsc
   workingDirectory: src/build-task/AugurkCSharpAnalyzer
   displayName: Build AugurkCSharpAnalyzer task
 
 - script: |
     npm install
-    npx tsc -v
-    npx tsc
+    tsc
   workingDirectory: src/build-task/AugurkCLIInstaller
   displayName: Build AugurkCLIInstaller task
 
 - script: |
     npm install
-    npx tsc -v
-    npx tsc
+    tsc
   workingDirectory: src/build-task/AugurkCLI
   displayName: Build AugurkCLI task
 

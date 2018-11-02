@@ -1,5 +1,5 @@
 {
-  "name": "augurk-commandline-installer",
+  "name": "augurk-cli-installer-task",
   "version": "1.0.0",
   "description": "An Azure DevOps (Server) tool installer task for getting a specific version of the Augurk.CommandLine",
   "main": "index.js",
