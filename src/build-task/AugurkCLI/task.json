@@ -32,7 +32,7 @@
     },
     {
       "name": "productName",
-      "type": "picklist",
+      "type": "pickList",
       "label": "Product Name",
       "defaultValue": "",
       "required": true,
@@ -43,7 +43,7 @@
     },
     {
       "name": "groupName",
-      "type": "picklist",
+      "type": "pickList",
       "label": "Group Name",
       "defaultValue": "",
       "required": false,

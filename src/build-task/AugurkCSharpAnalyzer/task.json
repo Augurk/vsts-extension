@@ -48,7 +48,7 @@
     },
     {
       "name": "productName",
-      "type": "picklist",
+      "type": "pickList",
       "label": "Product Name",
       "defaultValue": "",
       "required": true,
