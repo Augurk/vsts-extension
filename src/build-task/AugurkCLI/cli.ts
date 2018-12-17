@@ -1,5 +1,7 @@
 import tl = require('azure-pipelines-task-lib/task');
-import trm = require('azure-pipelines-task-lib/toolrunner');
+import { publishCommand } from './publishCommand';
+import { deleteCommand } from './deleteCommand';
+import { pruneCommand } from './pruneCommand';
 
 async function run() {
     try {
@@ -42,61 +44,6 @@ async function run() {
     }
     catch (err) {
         tl.setResult(tl.TaskResult.Failed, err.message);
-    }
-}
-
-async function publishCommand(tool: trm.ToolRunner) {
-    // Build and run the analyze command
-    const publishCommand = tool;
-    const publishResult = await publishCommand.exec();
-    if (publishResult !== 0) {
-        tl.error(`Publish command failed with exit code ${publishResult}`);
-        return;
-    } else {
-        tl.debug('Publish command executed succesfully');
-    }
-}
-
-async function deleteCommand(tool: trm.ToolRunner) {
-    // Build and run the delete command
-    const featureName = tl.getInput("featureName", false);
-    const version = tl.getInput("version", false);
-
-    let deleteCommand = tool;
-    if (featureName) {
-        deleteCommand = deleteCommand.arg(["--featureName", featureName]);
-    }
-    if (version) {
-        deleteCommand = deleteCommand.arg(["--version", version]);
-    }
-
-    const deleteResult = await deleteCommand.exec();
-    if (deleteResult !== 0) {
-        tl.error(`Delete command failed with exit code ${deleteResult}`);
-        return;
-    } else {
-        tl.debug('Delete command executed succesfully');
-    }
-}
-
-async function pruneCommand(tool: trm.ToolRunner) {
-    // Build and run the prune command
-    const prereleaseOnly = tl.getBoolInput("prereleaseOnly", true);
-    const versionRegex = tl.getInput("versionRegex", false);
-
-    let pruneCommand = tool;
-    if (prereleaseOnly) {
-        pruneCommand = pruneCommand.arg("--prerelease");
-    } else {
-        pruneCommand = pruneCommand.arg(["--versionRegex", versionRegex]);
-    }
-
-    const pruneResult = await pruneCommand.exec();
-    if (pruneResult !== 0) {
-        tl.error(`Prune command failed with exit code ${pruneResult}`);
-        return;
-    } else {
-        tl.debug('Prune command executed succesfully');
     }
 }
 
