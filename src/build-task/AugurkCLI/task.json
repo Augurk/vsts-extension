@@ -3,7 +3,7 @@
   "name": "AugurkCLI",
   "friendlyName": "Run Augurk CLI",
   "description": "Runs the various commands supported by the Augurk CLI.",
-  "category": "Utility",
+  "categorues": [ "Utility" ],
   "author": "Augurk",
   "version": {
     "Major": 0,

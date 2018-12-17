@@ -3,7 +3,7 @@
     "name": "AugurkCLIInstaller",
     "friendlyName": "Install Augurk CLI",
     "description": "Installs a specific version of the Augurk CLI onto the build agent, which can then be used by the associated publish task",
-    "category": "Utility",
+    "categories":  [ "Utility" ],
     "author": "Augurk",
     "version": {
         "Major": 0,

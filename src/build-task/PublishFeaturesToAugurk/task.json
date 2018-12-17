@@ -3,7 +3,7 @@
     "name": "PublishFeaturesToAugurk",
     "friendlyName": "Publish Features To Augurk",
     "description": "Publishes Gherkin .feature files to Augurk.",
-    "category": "Utility",
+    "categories": [ "Utility" ],
     "author": "Jonathan Mezach, Mark Taling",
     "version": {
         "Major": 1,
