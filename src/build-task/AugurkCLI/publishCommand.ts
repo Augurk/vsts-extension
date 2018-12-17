@@ -16,8 +16,8 @@ export async function publishCommand(tool: trm.ToolRunner) {
     }, {});
 
     // Run the command for each group
-    const publishCommand = tool;
     for (const key of Object.keys(groupedFeatures)) {
+        const publishCommand = Object.assign({}, tool);
         publishCommand.arg(['--featureFiles', groupedFeatures[key].join(',')]);
         publishCommand.arg(['--groupName', key]);
 
