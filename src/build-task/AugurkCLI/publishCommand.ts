@@ -1,7 +1,6 @@
 import tl = require('azure-pipelines-task-lib/task');
 import trm = require('azure-pipelines-task-lib/toolrunner');
 import path = require('path');
-import { stringify } from 'querystring';
 
 export async function publishCommand(tool: trm.ToolRunner) {
     // Find the feature files we're going to publish
@@ -16,17 +15,19 @@ export async function publishCommand(tool: trm.ToolRunner) {
         return groups;
     }, {});
 
-    for (const key of Object.keys(groupedFeatures)) {
-        tl.debug('Found group ' + key);
-    }
-
+    // Run the command for each group
     const publishCommand = tool;
-    const publishResult = await publishCommand.exec();
-    if (publishResult !== 0) {
-        tl.error(`Publish command failed with exit code ${publishResult}`);
-        return;
-    }
-    else {
-        tl.debug('Publish command executed succesfully');
+    for (const key of Object.keys(groupedFeatures)) {
+        publishCommand.arg(['--featureFiles', groupedFeatures[key].join(',')]);
+        publishCommand.arg(['--groupName', key]);
+
+        const publishResult = await publishCommand.exec();
+        if (publishResult !== 0) {
+            tl.error(`Publish command failed with exit code ${publishResult}`);
+            return;
+        }
+        else {
+            tl.debug('Publish command executed succesfully');
+        }
     }
 }
