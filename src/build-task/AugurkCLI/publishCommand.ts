@@ -1,8 +1,8 @@
 import tl = require('azure-pipelines-task-lib/task');
-import trm = require('azure-pipelines-task-lib/toolrunner');
 import path = require('path');
+import { buildBaseToolRunner } from './cli';
 
-export async function publishCommand(tool: trm.ToolRunner) {
+export async function publishCommand() {
     // Find the feature files we're going to publish
     const features = tl.getPathInput('features', true);
     const featureFiles = tl.findMatch(process.cwd(), features);
@@ -17,7 +17,7 @@ export async function publishCommand(tool: trm.ToolRunner) {
 
     // Run the command for each group
     for (const key of Object.keys(groupedFeatures)) {
-        const publishCommand = Object.assign({}, tool);
+        const publishCommand = buildBaseToolRunner("publish");
         publishCommand.arg(['--featureFiles', groupedFeatures[key].join(',')]);
         publishCommand.arg(['--groupName', key]);
 
