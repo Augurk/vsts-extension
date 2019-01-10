@@ -8,18 +8,22 @@ async function run() {
         
         // Determine the correct path in the tools folder for the current platform
         let platform: string;
+        let extension: string;
         if (process.platform === 'win32') {
             platform = 'win-x64';
+            extension = 'zip';
         } else if (process.platform === 'linux') {
             platform = 'linux-x64';
+            extension = 'tar.gz';
         } else if (process.platform === 'darwin') {
             platform = 'osx-x64';
+            extension = 'tar.gz';
         } else {
             throw new Error(`Unknown platform ${process.platform}`);
         }
 
         // Construct the download URL
-        const url = `https://github.com/Augurk/Augurk.CommandLine/releases/download/${version}/Augurk.CommandLine-${platform}-${version}.zip`;
+        const url = `https://github.com/Augurk/Augurk.CommandLine/releases/download/${version}/Augurk.CommandLine-${platform}-${version}.${extension}`;
 
         // Download the NuGet package and extract it
         const temp: string = await toolLib.downloadTool(url);
