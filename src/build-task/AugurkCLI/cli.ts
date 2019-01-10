@@ -6,6 +6,8 @@ import { ToolRunner } from 'azure-pipelines-task-lib/toolrunner';
 
 async function run() {
     try {
+        tl.debug(`PATH: ${process.env.OATH}`);
+
         // Check the command that we're going to execute
         const command = tl.getInput("command", true);
         switch (command)
