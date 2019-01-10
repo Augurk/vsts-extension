@@ -27,7 +27,15 @@ async function run() {
 
         // Download the NuGet package and extract it
         const temp: string = await toolLib.downloadTool(url);
-        const extractRoot: string = await toolLib.extractZip(temp);
+        let extractRoot: string;
+        if (process.platform === 'win32') {
+            extractRoot = await toolLib.extractZip(temp);
+        } else if (process.platform === 'linux' ||
+                   process.platform === 'darwin') {
+            extractRoot = await toolLib.extractTar(temp);
+        } else {
+            throw new Error(`Unknown platform ${process.platform}`);
+        }
 
         // The Node binary is in the bin folder of the extracted directory
         toolLib.prependPath(extractRoot);
