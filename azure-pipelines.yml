@@ -43,12 +43,15 @@ steps:
     mocha tests/_suite.js --reporter mocha-junit-reporter
   workingDirectory: src/build-task/AugurkCLI
   displayName: Build AugurkCLI task
+  env:
+    TASK_TEST_TRACE: 1
 
 - task: PublishTestResults@2
   condition: succeededOrFailed()
   inputs:
     testRunner: JUnit
     testResultsFiles: '**/TEST-RESULTS.xml'
+    mergeTestResults: true
 
 - task: PackageVSTSExtension@1
   displayName: Package extension
