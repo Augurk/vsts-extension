@@ -54,6 +54,7 @@ steps:
     mergeTestResults: true
 
 - task: PublishBuildArtifacts@1
+  condition: succeededOrFailed()
   inputs:
     pathtoPublish: '$(Build.SourcesDirectory)/**/*.js.log'
     artifactName: testlogs
