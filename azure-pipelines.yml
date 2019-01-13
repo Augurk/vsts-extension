@@ -40,9 +40,15 @@ steps:
 - bash: |
     npm install
     tsc
-    mocha tests/_suite.js
+    mocha tests/_suite.js --reporter mocha-junit-reporter
   workingDirectory: src/build-task/AugurkCLI
   displayName: Build AugurkCLI task
+
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+    testRunner: JUnit
+    testResultsFiles: '**/TEST-RESULTS.xml'
 
 - task: PackageVSTSExtension@1
   displayName: Package extension
