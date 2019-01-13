@@ -15,7 +15,9 @@ steps:
 - bash: |
     npm install -g typescript
     tsc -v
-  displayName: Install typescript
+    npm install -g mocha
+    mocha -v
+  displayName: Install typescript & mocha
 
 - bash: |
     npm install
@@ -38,6 +40,7 @@ steps:
 - bash: |
     npm install
     tsc
+    mocha tests/_suite.js
   workingDirectory: src/build-task/AugurkCLI
   displayName: Build AugurkCLI task
 

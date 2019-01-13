@@ -32,7 +32,7 @@ async function run() {
 
 export function buildBaseToolRunner(command: string): ToolRunner {
     // Determine the basic input values we'll always need
-    const endpoint = tl.getInput("connectedServiceName", true);
+    const endpoint = tl.getInput("augurkInstance", true);
     const augurkUrl = tl.getEndpointUrl(endpoint, false);
     const productName = tl.getInput("productName", true);
     const groupName = tl.getInput("groupName", false);

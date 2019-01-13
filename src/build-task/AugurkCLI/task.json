@@ -7,8 +7,8 @@
   "author": "Augurk",
   "version": {
     "Major": 0,
-    "Minor": 2,
-    "Patch": 12
+    "Minor": 3,
+    "Patch": 0
   },
   "demands": [
     "augurk-cli"
@@ -23,7 +23,7 @@
   ],
   "inputs": [
     {
-      "name": "connectedServiceName",
+      "name": "augurkInstance",
       "type": "connectedService:Augurk",
       "label": "Augurk Instance",
       "defaultValue": "",
