@@ -38,7 +38,7 @@ export function buildBaseToolRunner(command: string): ToolRunner {
     const groupName = tl.getInput("groupName", false);
 
     // Discover the location of the CLI and make sure it is available
-    const cliPath = process.platform === 'win32' ? tl.which('augurk.exe', true) : tl.which('augurk', true);
+    const cliPath = tl.which('augurk', true);
 
     // Build the basic template for running the tool
     return tl.tool(cliPath)
