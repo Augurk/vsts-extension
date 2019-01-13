@@ -31,6 +31,19 @@
       "helpMarkDown": "Augurk instance to which the results should be uploaded."
     },
     {
+      "name": "command",
+      "type": "pickList",
+      "label": "Command",
+      "defaultValue": "publish",
+      "options": {
+        "publish": "Publish features to Augurk",
+        "delete": "Delete features from Augurk",
+        "prune": "Prune features in Augurk"
+      },
+      "required": true,
+      "helpMarkDown": "Choose the command to run using the Augurk CLI"
+    },
+    {
       "name": "productName",
       "type": "pickList",
       "label": "Product Name",
@@ -62,20 +75,6 @@
       },
       "visibleRule": "useFolderStructure=false"
     },
-    {
-      "name": "command",
-      "type": "pickList",
-      "label": "Command",
-      "defaultValue": "publish",
-      "options": {
-        "publish": "Publish features to Augurk",
-        "delete": "Delete features from Augurk",
-        "prune": "Prune features in Augurk"
-      },
-      "required": true,
-      "helpMarkDown": "Choose the command to run using the Augurk CLI"
-    },
-
     {
       "name": "features",
       "type": "filePath",
