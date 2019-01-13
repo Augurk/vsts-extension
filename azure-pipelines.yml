@@ -16,7 +16,7 @@ steps:
     npm install -g typescript
     tsc -v
     npm install -g mocha
-    mocha -v
+    mocha -V
   displayName: Install typescript & mocha
 
 - bash: |
