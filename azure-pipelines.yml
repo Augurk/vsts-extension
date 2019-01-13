@@ -53,10 +53,16 @@ steps:
     testResultsFiles: '**/TEST-RESULTS.xml'
     mergeTestResults: true
 
+- task: CopyFiles@2
+  inputs:
+    sourceFolder: '$(Build.SourcesDirectory)'
+    contents: '**/*.js.log'
+    targetFolder: '$(Build.ArtifactStagingDirectory)/testlogs'
+
 - task: PublishBuildArtifacts@1
   condition: succeededOrFailed()
   inputs:
-    pathtoPublish: '$(Build.SourcesDirectory)/**/*.js.log'
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)/testlogs'
     artifactName: testlogs
 
 - task: PackageVSTSExtension@1
