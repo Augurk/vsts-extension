@@ -15,7 +15,7 @@ steps:
 - bash: |
     npm install -g typescript
     tsc -v
-    npm install -g mocha
+    npm install -g mocha mocha-junit-reporter
     mocha -V
   displayName: Install typescript & mocha
 
