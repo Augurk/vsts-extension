@@ -1,5 +1,7 @@
 import * as taskLib from 'azure-pipelines-task-lib/task';
 import * as toolLib from 'vsts-task-tool-lib/tool';
+import * as fs from 'fs';
+import * as path from 'path';
 
 async function run() {
     try {
@@ -33,6 +35,10 @@ async function run() {
         } else if (process.platform === 'linux' ||
                    process.platform === 'darwin') {
             extractRoot = await toolLib.extractTar(temp);
+
+            // HACK: Set executable permissions for everyone, otherwise we can't find it later
+            //       This is a workaround for this bug: https://github.com/Microsoft/azure-pipelines-task-lib/issues/420
+            fs.chmodSync(path.join(extractRoot, 'augurk'), '0777');
         } else {
             throw new Error(`Unknown platform ${process.platform}`);
         }
