@@ -53,6 +53,11 @@ steps:
     testResultsFiles: '**/TEST-RESULTS.xml'
     mergeTestResults: true
 
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(Build.SourcesDirectory)/**/*.js.log'
+    artifactName: testlogs
+
 - task: PackageVSTSExtension@1
   displayName: Package extension
   inputs:
