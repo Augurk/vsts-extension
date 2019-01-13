@@ -26,6 +26,20 @@ describe('Augurk CLI Task', function () {
         done();
     });
 
+    it('should succesfully publish an individual group', function(done: MochaDone) {
+        this.timeout(1000);
+    
+        let tp = path.join(__dirname, 'publish-individual-group.js');
+        let tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
+    
+        tr.run();
+        console.log(tr.succeeded);
+        assert.equal(tr.succeeded, true, 'should have succeeded');
+        assert.equal(tr.warningIssues.length, 0, "should have no warnings");
+        assert.equal(tr.errorIssues.length, 0, "should have no errors");
+        done();
+    });
+
     it('it should succesfully delete', function(done: MochaDone) {
         this.timeout(1000);
     

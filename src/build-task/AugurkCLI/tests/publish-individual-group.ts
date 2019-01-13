@@ -8,15 +8,15 @@ tmr.setInput('command', 'publish');
 tmr.setInput('features', '**/*.feature');
 tmr.setInput('augurkInstance', 'SomeAugurkInstance');
 tmr.setInput('productName', 'Augurk');
-tmr.setInput('useFolderStructure', 'true');
+tmr.setInput('groupName', 'Configuration');
+tmr.setInput('useFolderStructure', 'false');
 
 process.env["ENDPOINT_URL_SomeAugurkInstance"] = "https://some.augurk.instance";
 
 tmr.setAnswers({
     findMatch: {
         "**/*.feature": [
-            "Configuration/RetentionPolicy.feature",
-            "Gherkin/ChildOfTag.feature",
+            "RetentionPolicy.feature",
         ]
     },
     which: {
@@ -26,10 +26,7 @@ tmr.setAnswers({
         "/some/path/to/augurk": true
     },
     exec: {
-        "/some/path/to/augurk publish --url https://some.augurk.instance --productName Augurk --featureFiles Configuration/RetentionPolicy.feature --groupName Configuration": {
-            code: 0,
-        },
-        "/some/path/to/augurk publish --url https://some.augurk.instance --productName Augurk --featureFiles Gherkin/ChildOfTag.feature --groupName Gherkin": {
+        "/some/path/to/augurk publish --url https://some.augurk.instance --productName Augurk --groupName Configuration --featureFiles RetentionPolicy.feature": {
             code: 0,
         },
     }

@@ -8,7 +8,7 @@
   "version": {
     "Major": 0,
     "Minor": 3,
-    "Patch": 1
+    "Patch": 2
   },
   "demands": [
     "augurk-cli"
@@ -50,7 +50,8 @@
       "helpMarkDown": "Name of the group to operate on in Augurk, or empty to operate on all groups within the provided product.",
       "properties": {
         "EditableOptions": "True"
-      }
+      },
+      "visibleRule": "useFolderStructure=false"
     },
     {
       "name": "command",

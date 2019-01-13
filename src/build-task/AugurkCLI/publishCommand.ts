@@ -7,6 +7,15 @@ export async function publishCommand() {
     const features = tl.getPathInput('features', true);
     const featureFiles = tl.findMatch(process.cwd(), features);
 
+    // Check whether we should use the folder structure
+    if (tl.getBoolInput('useFolderStructure', true)) {
+        await publishUsingFolderStructure(featureFiles);
+    } else {
+        await publishIndividualGroup(featureFiles);
+    }
+}
+
+async function publishUsingFolderStructure(featureFiles: string[]) {
     // Group the found files by their parent directory
     const groupedFeatures = featureFiles.reduce<{ [index: string]: string[] }>((groups, item) => {
         const parent = path.dirname(item).split(path.sep).pop() as string;
@@ -24,10 +33,21 @@ export async function publishCommand() {
         const publishResult = await publishCommand.exec();
         if (publishResult !== 0) {
             tl.error(`Publish command failed with exit code ${publishResult}`);
-            return;
         }
         else {
             tl.debug('Publish command executed succesfully');
         }
+    }
+}
+
+async function publishIndividualGroup(featureFiles: string[]) {
+    const publishCommand = buildBaseToolRunner('publish');
+    publishCommand.arg(['--featureFiles', featureFiles.join(',')]);
+
+    const publishResult = await publishCommand.exec();
+    if (publishResult !== 0) {
+        tl.error(`Publish command failed with exit code ${publishResult}`);
+    } else {
+        tl.debug('Publish command executed succesfully.');
     }
 }
