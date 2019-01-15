@@ -4,11 +4,12 @@
     "friendlyName": "Publish Features To Augurk",
     "description": "Publishes Gherkin .feature files to Augurk.",
     "categories": [ "Utility" ],
+    "deprecated": true,
     "author": "Jonathan Mezach, Mark Taling",
     "version": {
         "Major": 1,
         "Minor": 0,
-        "Patch": 4
+        "Patch": 5
     },
     "instanceNameFormat": "Publish features from $(features) to Augurk",
     "groups": [
@@ -37,7 +38,7 @@
     },
     {
       "name": "productName",
-      "type": "picklist",
+      "type": "pickList",
       "label": "Product Name",
       "defaultValue": "",
       "required": true,
