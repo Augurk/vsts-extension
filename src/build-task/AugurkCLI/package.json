@@ -1,7 +1,7 @@
 {
-  "name": "augurk-csharp-analyzer-installer",
+  "name": "augurk-cli-task",
   "version": "1.0.0",
-  "description": "An Azure DevOps (Server) tool installer task for getting a specific version of the Augurk.CSharpAnalyzer",
+  "description": "An Azure DevOps (Server) build task that invokes Augurk's CLI",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,10 +17,10 @@
   },
   "homepage": "https://github.com/augurk/vsts-extension#readme",
   "dependencies": {
-    "azure-pipelines-task-lib": "^2.7.7",
-    "vsts-task-tool-lib": "^0.10.0"
+    "azure-pipelines-task-lib": "^2.7.7"
   },
   "devDependencies": {
+    "@types/mocha": "^5.2.5",
     "@types/node": "^10.12.15",
     "@types/q": "^1.5.1"
   }

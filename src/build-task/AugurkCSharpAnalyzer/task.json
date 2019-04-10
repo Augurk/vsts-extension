@@ -3,12 +3,12 @@
   "name": "AugurkCSharpAnalyzer",
   "friendlyName": "Run Augurk C# Analysis",
   "description": "Performs a static code analysis over your test automation and uploads the results to Augurk allowing you to visualize dependencies between features",
-  "category": "Utility",
+  "categories": [ "Utility" ],
   "author": "Augurk",
   "version": {
     "Major": 0,
     "Minor": 1,
-    "Patch": 2
+    "Patch": 4
   },
   "demands": [
     "augurk-csharpanalyzer"
@@ -48,7 +48,7 @@
     },
     {
       "name": "productName",
-      "type": "picklist",
+      "type": "pickList",
       "label": "Product Name",
       "defaultValue": "",
       "required": true,

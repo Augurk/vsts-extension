@@ -7,24 +7,64 @@ pool:
   vmImage: 'VS2017-Win2016'
 
 steps:
-- task: GitVersion@3
+- task: GitVersion@4
 - task: NodeTool@0
   inputs:
     versionSpec: '8.x'
 
-- script: |
+- bash: |
+    npm install -g typescript
+    tsc -v
+    npm install -g mocha mocha-junit-reporter
+    mocha -V
+  displayName: Install typescript & mocha
+
+- bash: |
     npm install
-    npx tsc -v
-    npx tsc
+    tsc
   workingDirectory: src/build-task/AugurkCSharpAnalyzerInstaller
   displayName: Build AugurkCSharpAnalyzerInstaller task
 
-- script: |
+- bash: |
     npm install
-    npx tsc -v
-    npx tsc
+    tsc
   workingDirectory: src/build-task/AugurkCSharpAnalyzer
   displayName: Build AugurkCSharpAnalyzer task
+
+- bash: |
+    npm install
+    tsc
+  workingDirectory: src/build-task/AugurkCLIInstaller
+  displayName: Build AugurkCLIInstaller task
+
+- bash: |
+    npm install
+    tsc
+    mocha tests/_suite.js --reporter mocha-junit-reporter
+  workingDirectory: src/build-task/AugurkCLI
+  displayName: Build AugurkCLI task
+  env:
+    TASK_TEST_TRACE: 1
+
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+    testRunner: JUnit
+    testResultsFiles: '**/TEST-RESULTS.xml'
+    mergeTestResults: true
+
+- task: CopyFiles@2
+  condition: succeededOrFailed()
+  inputs:
+    sourceFolder: '$(Build.SourcesDirectory)'
+    contents: '**/*.js.log'
+    targetFolder: '$(Build.ArtifactStagingDirectory)/testlogs'
+
+- task: PublishBuildArtifacts@1
+  condition: succeededOrFailed()
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)/testlogs'
+    artifactName: testlogs
 
 - task: PackageVSTSExtension@1
   displayName: Package extension
