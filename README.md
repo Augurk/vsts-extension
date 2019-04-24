@@ -2,6 +2,7 @@
 Contains the ~~VSTS~~ Azure DevOps Services (or TFS) extension that integrates [Augurk](https://augurk.github.io) into the Azure DevOps (Server) environment.
 
 [![Build Status](https://dev.azure.com/augurk/Augurk/_apis/build/status/Augurk.vsts-extension)](https://dev.azure.com/augurk/Augurk/_build/latest?definitionId=1)
+![Release Release Status](https://vsrm.dev.azure.com/augurk/_apis/public/Release/badge/5a86f7f3-d9bb-4198-9b43-bbb7d066dd90/1/4)
 
 # Prerequisites
 This repository requires the following to be installed on your machine:
