@@ -32,7 +32,7 @@ tmr.setAnswers({
         "/some/path/to/augurk": true
     },
     exec: {
-        "/some/path/to/augurk publish --url https://some.augurk.instance --productName Augurk --groupName Configuration --featureFiles RetentionPolicy.feature --productDescription product-description-1.md": {
+        "/some/path/to/augurk publish --url https://some.augurk.instance --productName Augurk --groupName Configuration --featureFiles RetentionPolicy.feature --productDesc product-description-1.md": {
             code: 0,
         },
     }

@@ -31,10 +31,10 @@ tmr.setAnswers({
         "/some/path/to/augurk": true
     },
     exec: {
-        "/some/path/to/augurk publish --url https://some.augurk.instance --productName Augurk --featureFiles Configuration/RetentionPolicy.feature --groupName Configuration --productDescription product-description.md": {
+        "/some/path/to/augurk publish --url https://some.augurk.instance --productName Augurk --featureFiles Configuration/RetentionPolicy.feature --groupName Configuration --productDesc product-description.md": {
             code: 0,
         },
-        "/some/path/to/augurk publish --url https://some.augurk.instance --productName Augurk --featureFiles Gherkin/ChildOfTag.feature --groupName Gherkin --productDescription product-description.md": {
+        "/some/path/to/augurk publish --url https://some.augurk.instance --productName Augurk --featureFiles Gherkin/ChildOfTag.feature --groupName Gherkin --productDesc product-description.md": {
             code: 0,
         },
     }

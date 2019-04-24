@@ -42,7 +42,7 @@ async function publishUsingFolderStructure(featureFiles: string[], productDescri
         const publishCommand = buildBaseToolRunner("publish");
         publishCommand.arg(['--featureFiles', groupedFeatures[key].join(',')]);
         publishCommand.arg(['--groupName', key]);
-        publishCommand.argIf(productDescription != null, ['--productDescription', productDescription]);
+        publishCommand.argIf(productDescription != null, ['--productDesc', productDescription]);
 
         const publishResult = await publishCommand.exec();
         if (publishResult !== 0) {
@@ -57,7 +57,7 @@ async function publishUsingFolderStructure(featureFiles: string[], productDescri
 async function publishIndividualGroup(featureFiles: string[], productDescription: string | null) {
     const publishCommand = buildBaseToolRunner('publish');
     publishCommand.arg(['--featureFiles', featureFiles.join(',')]);
-    publishCommand.argIf(productDescription != null, ['--productDescription', productDescription]);
+    publishCommand.argIf(productDescription != null, ['--productDesc', productDescription]);
 
     const publishResult = await publishCommand.exec();
     if (publishResult !== 0) {
