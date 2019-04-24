@@ -10,7 +10,7 @@ tmr.setInput('augurkInstance', 'SomeAugurkInstance');
 tmr.setInput('productName', 'Augurk');
 tmr.setInput('useFolderStructure', 'true');
 tmr.setInput('includeProductDescription', 'true');
-tmr.setInput('productDescription', 'produt-description.md');
+tmr.setInput('productDescription', 'product-description.md');
 
 process.env["ENDPOINT_URL_SomeAugurkInstance"] = "https://some.augurk.instance";
 
@@ -19,6 +19,9 @@ tmr.setAnswers({
         "**/*.feature": [
             "Configuration/RetentionPolicy.feature",
             "Gherkin/ChildOfTag.feature",
+        ],
+        "product-description.md": [
+            "product-description.md"
         ]
     },
     which: {

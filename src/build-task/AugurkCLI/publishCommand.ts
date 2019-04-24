@@ -7,15 +7,28 @@ export async function publishCommand() {
     const features = tl.getPathInput('features', true);
     const featureFiles = tl.findMatch(process.cwd(), features);
 
+    // Find the product description (if desired)
+    let productDescription: string | null = null;
+    const includeProductDescription= tl.getBoolInput('includeProductDescription', true);
+    if (includeProductDescription) {
+        const productDescriptionPath = tl.getPathInput('productDescription', true);
+        const productDescriptions = tl.findMatch(process.cwd(), productDescriptionPath);
+        if (productDescriptions.length > 1) {
+            tl.warning(`Expected a single product description file, but path ${productDescriptionPath} resolved to multiple files. Taking first one.s`);
+        }
+
+        productDescription = productDescriptions[0];
+    }
+
     // Check whether we should use the folder structure
     if (tl.getBoolInput('useFolderStructure', true)) {
-        await publishUsingFolderStructure(featureFiles);
+        await publishUsingFolderStructure(featureFiles, productDescription);
     } else {
-        await publishIndividualGroup(featureFiles);
+        await publishIndividualGroup(featureFiles, productDescription);
     }
 }
 
-async function publishUsingFolderStructure(featureFiles: string[]) {
+async function publishUsingFolderStructure(featureFiles: string[], productDescription: string | null) {
     // Group the found files by their parent directory
     const groupedFeatures = featureFiles.reduce<{ [index: string]: string[] }>((groups, item) => {
         const parent = path.dirname(item).split(path.sep).pop() as string;
@@ -29,6 +42,7 @@ async function publishUsingFolderStructure(featureFiles: string[]) {
         const publishCommand = buildBaseToolRunner("publish");
         publishCommand.arg(['--featureFiles', groupedFeatures[key].join(',')]);
         publishCommand.arg(['--groupName', key]);
+        publishCommand.argIf(productDescription != null, ['--productDescription', productDescription]);
 
         const publishResult = await publishCommand.exec();
         if (publishResult !== 0) {
@@ -40,9 +54,10 @@ async function publishUsingFolderStructure(featureFiles: string[]) {
     }
 }
 
-async function publishIndividualGroup(featureFiles: string[]) {
+async function publishIndividualGroup(featureFiles: string[], productDescription: string | null) {
     const publishCommand = buildBaseToolRunner('publish');
     publishCommand.arg(['--featureFiles', featureFiles.join(',')]);
+    publishCommand.argIf(productDescription != null, ['--productDescription', productDescription]);
 
     const publishResult = await publishCommand.exec();
     if (publishResult !== 0) {
