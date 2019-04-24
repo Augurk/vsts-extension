@@ -23,6 +23,7 @@ describe('Augurk CLI Task', function () {
         assert.equal(tr.succeeded, true, 'should have succeeded');
         assert.equal(tr.warningIssues.length, 0, "should have no warnings");
         assert.equal(tr.errorIssues.length, 0, "should have no errors");
+        console.log(tr.cmdlines);
         done();
     });
 

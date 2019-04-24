@@ -9,6 +9,8 @@ tmr.setInput('features', '**/*.feature');
 tmr.setInput('augurkInstance', 'SomeAugurkInstance');
 tmr.setInput('productName', 'Augurk');
 tmr.setInput('useFolderStructure', 'true');
+tmr.setInput('includeProductDescription', 'true');
+tmr.setInput('productDescription', 'produt-description.md');
 
 process.env["ENDPOINT_URL_SomeAugurkInstance"] = "https://some.augurk.instance";
 
@@ -26,10 +28,10 @@ tmr.setAnswers({
         "/some/path/to/augurk": true
     },
     exec: {
-        "/some/path/to/augurk publish --url https://some.augurk.instance --productName Augurk --featureFiles Configuration/RetentionPolicy.feature --groupName Configuration": {
+        "/some/path/to/augurk publish --url https://some.augurk.instance --productName Augurk --featureFiles Configuration/RetentionPolicy.feature --groupName Configuration --productDescription product-description.md": {
             code: 0,
         },
-        "/some/path/to/augurk publish --url https://some.augurk.instance --productName Augurk --featureFiles Gherkin/ChildOfTag.feature --groupName Gherkin": {
+        "/some/path/to/augurk publish --url https://some.augurk.instance --productName Augurk --featureFiles Gherkin/ChildOfTag.feature --groupName Gherkin --productDescription product-description.md": {
             code: 0,
         },
     }
