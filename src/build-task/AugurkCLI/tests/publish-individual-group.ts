@@ -10,6 +10,7 @@ tmr.setInput('augurkInstance', 'SomeAugurkInstance');
 tmr.setInput('productName', 'Augurk');
 tmr.setInput('groupName', 'Configuration');
 tmr.setInput('useFolderStructure', 'false');
+tmr.setInput('includeProductDescription', 'false');
 
 process.env["ENDPOINT_URL_SomeAugurkInstance"] = "https://some.augurk.instance";
 

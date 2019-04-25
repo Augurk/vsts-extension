@@ -8,7 +8,7 @@
   "version": {
     "Major": 0,
     "Minor": 3,
-    "Patch": 3
+    "Patch": 6
   },
   "demands": [
     "augurk-cli"
@@ -69,7 +69,7 @@
       "label": "Group Name",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Name of the group to operate on in Augurk, or empty to operate on all groups within the provided product.",
+      "helpMarkDown": "Name of the group to operate on in Augurk. NOTE: For the publish command this is required, for the other commands it is optional.",
       "properties": {
         "EditableOptions": "True"
       },
