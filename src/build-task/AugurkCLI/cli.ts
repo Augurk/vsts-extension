@@ -36,6 +36,7 @@ export function buildBaseToolRunner(command: string): ToolRunner {
     const augurkUrl = tl.getEndpointUrl(endpoint, false);
     const productName = tl.getInput("productName", true);
     const groupName = tl.getInput("groupName", false);
+    const additionalArguments = tl.getInput("additionalArguments", false);
 
     // Discover the location of the CLI and make sure it is available
     const cliPath = tl.which('augurk', true);
@@ -45,7 +46,8 @@ export function buildBaseToolRunner(command: string): ToolRunner {
              .arg(command)
              .arg(["--url", augurkUrl])
              .arg(["--productName", productName])
-             .argIf(groupName, ["--groupName", groupName]);
+             .argIf(groupName, ["--groupName", groupName])
+             .argIf(additionalArguments, additionalArguments);
 }
 
 run();
