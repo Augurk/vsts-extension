@@ -31,6 +31,19 @@ describe('Augurk CLI Task', function () {
             done();
         });
 
+        it('should succesfully publish with additional arguments', function() {
+            this.timeout(1000);
+        
+            let tp = path.join(__dirname, 'publish-additional-arguments.js');
+            let tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
+        
+            tr.run();
+            assert.deepEqual(tr.errorIssues, []);
+            assert.equal(tr.succeeded, true, 'should have succeeded');
+            assert.equal(tr.warningIssues.length, 0, "should have no warnings");
+            assert.equal(tr.errorIssues.length, 0, "should have no errors");
+        });
+
         it('logs warning if multiple product descriptions found', function(done: MochaDone) {
             this.timeout(1000);
         
