@@ -28,7 +28,7 @@ tmr.setAnswers({
         "/some/path/to/augurk": true
     },
     exec: {
-        "/some/path/to/augurk publish --url https://some.augurk.instance --productName Augurk --featureFiles Configuration/RetentionPolicy.feature --groupName Configuration --useIntegratedSecurity --compat-level 3 --productDesc product-description.md": {
+        "/some/path/to/augurk publish --url https://some.augurk.instance --productName Augurk --useIntegratedSecurity --compat-level 3 --productDesc product-description.md --featureFiles Configuration/RetentionPolicy.feature --groupName Configuration": {
             code: 0,
         }
     }

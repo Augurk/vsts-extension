@@ -4,7 +4,7 @@
   "description": "An Azure DevOps (Server) build task that invokes Augurk's CLI",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tsc && mocha tests/_suite.js"
   },
   "repository": {
     "type": "git",
