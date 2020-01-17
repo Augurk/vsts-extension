@@ -4,7 +4,7 @@
   "description": "An Azure DevOps (Server) build task that invokes Augurk's CLI",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tsc && mocha tests/_suite.js"
   },
   "repository": {
     "type": "git",
@@ -17,11 +17,11 @@
   },
   "homepage": "https://github.com/augurk/vsts-extension#readme",
   "dependencies": {
-    "azure-pipelines-task-lib": "^2.8.0"
+    "azure-pipelines-task-lib": "2.8.0"
   },
   "devDependencies": {
-    "@types/mocha": "^5.2.6",
-    "@types/node": "^10.14.5",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^10.17.13",
     "@types/q": "^1.5.2"
   }
 }

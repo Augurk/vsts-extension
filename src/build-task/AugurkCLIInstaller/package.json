@@ -17,11 +17,11 @@
   },
   "homepage": "https://github.com/augurk/vsts-extension#readme",
   "dependencies": {
-    "azure-pipelines-task-lib": "^2.7.7",
+    "azure-pipelines-task-lib": "2.8.0",
     "vsts-task-tool-lib": "^0.10.0"
   },
   "devDependencies": {
-    "@types/node": "^10.12.15",
-    "@types/q": "^1.5.1"
+    "@types/node": "^13.1.7",
+    "@types/q": "^1.5.2"
   }
 }

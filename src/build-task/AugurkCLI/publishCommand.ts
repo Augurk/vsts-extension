@@ -3,6 +3,9 @@ import path = require('path');
 import { buildBaseToolRunner } from './cli';
 
 export async function publishCommand() {
+    // Get the configured version
+    const version = tl.getInput('version', false);
+
     // Find the feature files we're going to publish
     const features = tl.getPathInput('features', true);
     const featureFiles = tl.findMatch(process.cwd(), features);
@@ -22,13 +25,13 @@ export async function publishCommand() {
 
     // Check whether we should use the folder structure
     if (tl.getBoolInput('useFolderStructure', true)) {
-        await publishUsingFolderStructure(featureFiles, productDescription);
+        await publishUsingFolderStructure(version, featureFiles, productDescription);
     } else {
-        await publishIndividualGroup(featureFiles, productDescription);
+        await publishIndividualGroup(version, featureFiles, productDescription);
     }
 }
 
-async function publishUsingFolderStructure(featureFiles: string[], productDescription: string | null) {
+async function publishUsingFolderStructure(version: string | null, featureFiles: string[], productDescription: string | null) {
     // Group the found files by their parent directory
     const groupedFeatures = featureFiles.reduce<{ [index: string]: string[] }>((groups, item) => {
         const parent = path.dirname(item).split(path.sep).pop() as string;
@@ -42,6 +45,7 @@ async function publishUsingFolderStructure(featureFiles: string[], productDescri
         const publishCommand = buildBaseToolRunner("publish");
         publishCommand.arg(['--featureFiles', groupedFeatures[key].join(',')]);
         publishCommand.arg(['--groupName', key]);
+        publishCommand.argIf(version != null, ['--version', version]);
         publishCommand.argIf(productDescription != null, ['--productDesc', productDescription]);
 
         const publishResult = await publishCommand.exec();
@@ -54,9 +58,10 @@ async function publishUsingFolderStructure(featureFiles: string[], productDescri
     }
 }
 
-async function publishIndividualGroup(featureFiles: string[], productDescription: string | null) {
+async function publishIndividualGroup(version: string | null, featureFiles: string[], productDescription: string | null) {
     const publishCommand = buildBaseToolRunner('publish');
     publishCommand.arg(['--featureFiles', featureFiles.join(',')]);
+    publishCommand.argIf(version != null, ['--version', version]);
     publishCommand.argIf(productDescription != null, ['--productDesc', productDescription]);
 
     const publishResult = await publishCommand.exec();
