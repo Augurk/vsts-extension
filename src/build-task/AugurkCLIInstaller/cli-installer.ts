@@ -1,12 +1,15 @@
 import * as taskLib from 'azure-pipelines-task-lib/task';
-import * as toolLib from 'vsts-task-tool-lib/tool';
+import * as toolLib from 'azure-pipelines-tool-lib/tool';
 import * as fs from 'fs';
 import * as path from 'path';
 
 async function run() {
     try {
         // Get task inputs
-        const version: string = taskLib.getInput('version', true);
+        const version = taskLib.getInput('version', true);
+        if (!version) {
+            throw new Error("Version is required");
+        }
         
         // Determine the correct path in the tools folder for the current platform
         let platform: string;
@@ -24,27 +27,31 @@ async function run() {
             throw new Error(`Unknown platform ${process.platform}`);
         }
 
-        // Construct the download URL
-        const url = `https://github.com/Augurk/Augurk.CommandLine/releases/download/${version}/Augurk.CommandLine-${platform}-${version}.${extension}`;
+        // Check if the tool is already installed
+        let toolPath: string = toolLib.findLocalTool('augurk-cli', version, platform);
+        if (!toolPath) {
+            // Tool is not installed, so construct the download URL
+            const url = `https://github.com/Augurk/Augurk.CommandLine/releases/download/${version}/Augurk.CommandLine-${platform}-${version}.${extension}`;
 
-        // Download the NuGet package and extract it
-        const temp: string = await toolLib.downloadTool(url);
-        let extractRoot: string;
-        if (process.platform === 'win32') {
-            extractRoot = await toolLib.extractZip(temp);
-        } else if (process.platform === 'linux' ||
-                   process.platform === 'darwin') {
-            extractRoot = await toolLib.extractTar(temp);
+            // Download the NuGet package and extract it
+            const temp: string = await toolLib.downloadTool(url);
+            let extractRoot: string;
+            if (process.platform === 'win32') {
+                extractRoot = await toolLib.extractZip(temp);
+            } else if (process.platform === 'linux' ||
+                    process.platform === 'darwin') {
+                extractRoot = await toolLib.extractTar(temp);
+            } else {
+                throw new Error(`Unknown platform ${process.platform}`);
+            }
 
-            // HACK: Set executable permissions for everyone, otherwise we can't find it later
-            //       This is a workaround for this bug: https://github.com/Microsoft/azure-pipelines-task-lib/issues/420
-            fs.chmodSync(path.join(extractRoot, 'augurk'), '0777');
-        } else {
-            throw new Error(`Unknown platform ${process.platform}`);
+            // Cache the tool
+            toolPath = extractRoot;
+            toolLib.cacheDir(toolPath, 'augurk-cli', version, platform);
         }
 
         // The Node binary is in the bin folder of the extracted directory
-        toolLib.prependPath(extractRoot);
+        toolLib.prependPath(toolPath);
     }
     catch (err) {
         taskLib.setResult(taskLib.TaskResult.Failed, taskLib.loc('AugurkCLIInstallerFailed', err.message));
