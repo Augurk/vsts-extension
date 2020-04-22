@@ -1,7 +1,5 @@
 import * as taskLib from 'azure-pipelines-task-lib/task';
 import * as toolLib from 'azure-pipelines-tool-lib/tool';
-import * as fs from 'fs';
-import * as path from 'path';
 
 async function run() {
     try {
@@ -31,7 +29,8 @@ async function run() {
         let toolPath: string = toolLib.findLocalTool('augurk-cli', version, platform);
         if (!toolPath) {
             // Tool is not installed, so construct the download URL
-            const url = `https://github.com/Augurk/Augurk.CommandLine/releases/download/${version}/Augurk.CommandLine-${platform}-${version}.${extension}`;
+            const safeVersion = encodeURIComponent(version);
+            const url = `https://github.com/Augurk/Augurk.CommandLine/releases/download/${safeVersion}/Augurk.CommandLine-${platform}-${version.replace("+", ".")}.${extension}`;
 
             // Download the NuGet package and extract it
             const temp: string = await toolLib.downloadTool(url);
