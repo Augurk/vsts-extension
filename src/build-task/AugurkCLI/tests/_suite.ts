@@ -19,7 +19,7 @@ describe('Augurk CLI Task', function () {
         });
 
         it ('should succesfully publish with a version', function(done: MochaDone) {
-            this.timeout(1000);
+            this.timeout(2000);
 
             let tp = path.join(__dirname, 'publish-version.js');
             let tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
@@ -32,7 +32,7 @@ describe('Augurk CLI Task', function () {
         });
     
         it('should succesfully publish an individual group', function(done: MochaDone) {
-            this.timeout(1000);
+            this.timeout(2000);
         
             let tp = path.join(__dirname, 'publish-individual-group.js');
             let tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
